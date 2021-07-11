@@ -82,8 +82,35 @@ $onlyIf[$message!=;Type something!]
  
 $attachment[https://api.no-api-key.com/api/v2/trump?message=$replaceText[$message; ;+;-1]]
 `
-})
+});
 
+bot.command({
+ name: "meme", 
+ code: `$djsEval[( async () => {
+const Discord = require('discord.js')
+const Fetch = require('node-fetch')
+const Response = await Fetch('https://api.darkboy.me/getmeme')
+    const Json = await Response.json()
+
+    const Embed = new Discord.MessageEmbed()
+    .setColor('RANDOM')
+    .setTitle(Json.title)
+    .setImage(Json.image)
+    .setFooter(Json.up + ' 👍 | ' +Json.comments + '💬')
+    .setTimestamp()
+
+    message.channel.send(Embed)})()]`
+});
+
+bot.command({
+  name: "morse", 
+  code: `
+  $argsCheck[>1;That is not a valid message]
+$description[This is the morse translation of $message:
+
+$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$replaceText[$message;¡;-.-.-- ;-1];¿;..--.. ;-1];?;..--.. ;-1];/;-..-. ;-1];-;-....- ;-1];.;.-.-.- ;-1];,;--..-- ;-1];);-.--.- ;-1];(;-.--. ;-1];@;.--.-. ;-1];!;-.-.-- ;-1];ō;--- ;-1];ø;--- ;-1];œ;--- ;-1];ö;--- ;-1];ò;--- ;-1];ô;--- ;-1];õ;--- ;-1];ó;--- ;-1];ī;.. ;-1];ï;.. ;-1];į;.. ;-1];ì;.. ;-1];î;.. ;-1];í;.. ;-1];ū;..- ;-1];ù;..- ;-1];û;..- ;-1];ü;..- ;-1];ú;..- ;-1];ė;. ;-1];ę;. ;-1];ë;. ;-1];ē;. ;-1];è;. ;-1];ê;. ;-1];é;. ;-1];æ;.- ;-1];å;.- ;-1];ä;.- ;-1];â;.- ;-1];à;.- ;-1];ã;.- ;-1];á;.- ;-1];0;----- ;-1];1;.---- ;-1];2;..--- ;-1];3;...-- ;-1];4;....- ;-1];5;..... ;-1];6;-.... ;-1];7;--... ;-1];8;---.. ;-1];9;----. ;-1];A;.- ;-1];B;-... ;-1];C;-.-. ;-1];D;-.. ;-1];E;. ;-1];F;..-. ;-1];G;--. ;-1];H;.... ;-1];I;.. ;-1];J;.--- ;-1];K;-.- ;-1];L;.-.. ;-1];M;-- ;-1];N;-. ;-1];O;--- ;-1];P;.--. ;-1];Q;--.- ;-1];R;.-. ;-1];S;... ;-1];T;- ;-1];U;..- ;-1];V;...- ;-1];W;.-- ;-1];X;-..- ;-1];Y;-.-- ;-1];Z;--.. ;-1];a;.- ;-1];b;-... ;-1];c;-.-. ;-1];d;-.. ;-1];e;. ;-1];f;..-. ;-1];g;--. ;-1];h;.... ;-1];i;.. ;-1];j;.--- ;-1];k;-.- ;-1];l;.-.. ;-1];m;-- ;-1];n;-. ;-1];o;--- ;-1];p;.--. ;-1];q;--.- ;-1];r;.-. ;-1];s;... ;-1];t;- ;-1];u;..- ;-1];v;...- ;-1];w;.-- ;-1];x;-..- ;-1];y;-.-- ;-1];z;--.. ;-1]; ; / ;-1]]
+$color[RANDOM]`
+});
 
 bot.loopCommand({
   channel: "854017967767814188",
