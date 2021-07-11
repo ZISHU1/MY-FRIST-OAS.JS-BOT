@@ -84,6 +84,15 @@ $attachment[https://api.no-api-key.com/api/v2/trump?message=$replaceText[$messag
 `
 });
 
+
+bot.command({
+  name: "wasted", 
+  code: `
+$attachment[https://api.popcatdev.repl.co/caution?text=$message
+$onlyIf[$message[1]!=;pls type a text]
+`
+});
+
 bot.command({
  name: "meme", 
  code: `$djsEval[( async () => {
@@ -119,4 +128,72 @@ bot.loopCommand({
   $footer[👍 $jsonRequest[https://api.popcatdev.repl.co/meme;upvotes] | 💬 $jsonRequest[https://api.popcatdev.repl.co/meme;comments]]
   $color[RANDOM]`,
   every: 5
+});
+
+bot.command({
+  name: "sus", 
+  code: `
+$attachment[https://api.berk404.ga/sus?impostor=$userAvatar[$mentioned[1]]&crewmate=$userAvatar[$mentioned[2]]]
+$onlyIf[$mentioned[2]!=;Mention two persons]`
+});
+
+
+
+bot.command({
+    name: "avatar",
+    aliases: ['av'],
+    code: `
+$if[$findMembers[$message;10;{position}]!=1]
+$author[$userTag[$authorID];$authorAvatar]
+$description[Please choose the following...
+ 
+$findMembers[$message;10;**{position}.)** [{tag}](https://youtu.be/Qskm9MTz2V4=16)]]
+$color[BLUE]
+$awaitMessages[$authorID;1m;everything;avatar;$getVar[no] Cancelled]
+$setUserVar[userav;$findMembers[$message;10;{id}]]
+$elseIf[$findMembers[$message;10;{position}]==1]
+$author[$userTag[$get[id]];$userAvatar[$get[id]]]
+$image[$userAvatar[$get[id]?size=2048]]
+$color[BLUE]
+$addTimestamp
+$let[id;$findMembers[$message;10;{id}]]
+$endElseIf
+$endIf
+$onlyIf[$message!=;{author:$userTag[$authorID]:$authorAvatar}{image:$userAvatar[$authorID?size=2048]}{color:BLUE}{timestamp}]
+$onlyIf[$findMembers[$message;10;{id}]!=;{author:$userTag[$findUser[$message]]:$userAvatar[$findUser[$message]]}{image:$userAvatar[$findUser[$message]?size=2048]}{color:BLUE}{timestamp}]
+`
+})
+ 
+bot.awaitedCommand({
+    name: "avatar",
+    code: `
+$if[$isNumber[$message[1]]==true]
+$author[$userTag[$splitText[$message[1]]];$userAvatar[$splitText[$message[1]]]]
+$image[$userAvatar[$splitText[$message[1]]?size=2048]]
+$color[BLUE]
+$addTimestamp
+$textSplit[$getUserVar[userav];\n]
+$elseIf[$toLowercase[$message[1]]==cancel]
+$getVar[no] Cancelled
+$endElseIf
+$else
+$author[$userTag[$authorID];$authorAvatar]
+$image[$userAvatar[$authorID?size=2048]]
+$color[BLUE]
+$addTimestamp
+$endIf
+$suppressErrors[$getVar[no] Cancelled]
+`
+});
+
+
+bot.command({
+  name: "<@844445760204701707>",
+  code: `$jsonRequest[https://api.affiliateplus.xyz/api/chatbot?message=$replaceText[$message; ;+;-1]&botname=Bonzo&ownername=Darven&user=1;message]`
+}) 
+
+bot.variables({
+  userav: '', 
+  no: '❌', 
+    yes: '✅'
 });
